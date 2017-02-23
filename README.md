@@ -1,2 +1,8 @@
 # wordpress-ansible
-Installing WordPress on Ubuntu 16.04 Using Ansible on digitalocean.com [https://www.digitalocean.com/community/tutorials/how-to-automate-installing-wordpress-on-ubuntu-14-04-using-ansible]
+
+Tested on *Ubuntu 16.04.2 LTS*
+
+```
+sudo ansible-playbook playbook.yml -i hosts -e mysql_root_password=#password#
+```
+
