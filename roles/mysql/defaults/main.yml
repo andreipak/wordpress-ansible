@@ -1,0 +1,8 @@
+---
+wp_mysql_db: wordpress
+wp_mysql_user: wordpress
+wp_mysql_password: WordPress!32
+login_user: "{{ mysql_admin_user }}"
+login_password: "{{ mysql_admin_password }}"
+
+# defaults file for mysql

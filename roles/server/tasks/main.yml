@@ -1,0 +1,73 @@
+---
+- name: Update apt cache
+  apt: update_cache=yes cache_valid_time=3600
+  sudo: yes
+
+
+- debconf:
+   name: mysql-server
+   question: mysql-server/root_password
+   vtype: password
+   value: "{{ mysql_admin_password }}"
+
+
+- debconf:
+   name: mysql-server
+   question: mysql-server/root_password_again
+   vtype: password
+   value: "{{ mysql_admin_password }}"
+
+ 
+- name: Install mysql-server
+  apt: name=mysql-server state=present
+  sudo: yes
+
+- debconf:
+   name: mysql-server
+   question: mysql-server/root_password
+   vtype: password
+   value: "password"
+
+
+- debconf:
+   name: mysql-server
+   question: mysql-server/root_password_again
+   vtype: password
+   value: "password"
+
+
+- name: Install required software
+  apt: name={{ item }} state=present
+  sudo: yes
+  with_items:
+    - apache2
+    #- mysql-server
+    - php-mysql
+    - php
+    - libapache2-mod-php
+    - php-mcrypt
+    - python-mysqldb
+
+# https://coderwall.com/p/yez9yw/secure-mysql-with-ansible
+
+# - name: ensure mysql is running and starts on boot
+#   service: name=mysql state=started enabled=true
+# 
+# # http://ansible.cc/docs/modules.html#mysql-user
+# - name: update mysql root password for all root accounts
+#   mysql_user: name=root host=localhost password=r00t13
+# 
+# #- name: update mysql root password for all root accounts
+# #  mysql_user: name=root host={{ item }} password={{ root_db_password }}
+# #  with_items:
+# #    - 127.0.0.1
+# #    - ::1
+# 
+# - name: ensure anonymous users are not in the database
+#   mysql_user: name='' host={{ item }} state=absent
+#   with_items:
+#     - localhost
+# 
+# - name: remove the test database
+#   mysql_db: name=test state=absent
+

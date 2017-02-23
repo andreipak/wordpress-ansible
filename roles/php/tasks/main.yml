@@ -1,0 +1,9 @@
+---
+- name: Install php extensions
+  apt: name={{ item }} state=present
+  sudo: yes
+  with_items:
+    - php-gd 
+    - php-ssh2
+
+# tasks file for php

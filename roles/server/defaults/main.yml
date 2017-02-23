@@ -1,0 +1,5 @@
+---
+mysql_admin_user: root
+# http://stackoverflow.com/questions/35105615/ansible-use-default-if-a-variable-is-not-defined
+mysql_admin_password: "{{ mysql_root_password | default('root') }}"
+
